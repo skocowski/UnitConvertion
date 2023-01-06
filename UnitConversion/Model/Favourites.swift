@@ -12,7 +12,7 @@ class Favourites: ObservableObject, Codable {
     private var currencies: Set<String>
     
     // The UserDefaults key
-    private let saveKey = "Favourities"
+    private var saveKey = "Favourities"
     
     init() {
         // Load saved data
@@ -28,19 +28,19 @@ class Favourites: ObservableObject, Codable {
     }
     
     // Checking if contains favourited
-    func contains(_ currency: NewCurrency) -> Bool {
+    func contains(_ currency: AdjustedCurrency) -> Bool {
         currencies.contains(currency.name)
     }
     
     // Adding to favourities
-    func add(_ currency: NewCurrency) {
+    func add(_ currency: AdjustedCurrency) {
         objectWillChange.send()
         currencies.insert(currency.name)
         save()
     }
     
     // Removing from favourities
-    func remove(_ currency: NewCurrency) {
+    func remove(_ currency: AdjustedCurrency) {
         objectWillChange.send()
         currencies.remove(currency.name)
         save()
@@ -53,3 +53,4 @@ class Favourites: ObservableObject, Codable {
         }
     }
 }
+

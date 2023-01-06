@@ -16,11 +16,10 @@ struct Currency: Codable, Hashable {
 }
 
 // New struct to match the project needs
-struct NewCurrency {
+struct AdjustedCurrency {
     var name: String
     var rate: String
 }
-
 
 // Downloading JSON from API
 func getJSON<T: Decodable>(urlString: String, completion: @escaping (T?) -> Void) {
@@ -48,4 +47,5 @@ func getJSON<T: Decodable>(urlString: String, completion: @escaping (T?) -> Void
     }
     .resume()
 }
+
 

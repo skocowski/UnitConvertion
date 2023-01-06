@@ -9,20 +9,20 @@ import SwiftUI
 
 struct ConversionView: View {
     
-    @State private var input = 0.0
+    @State var input: Double = 1.0
     @State var inputUnit: Dimension
     
     var outputUnit: Dimension
     var selectedUnits: Int
     
-    // Short version for TextField and results
-    let formatter = MeasurementFormatter()
-    
-    // Long version for names in List View
-    let formatterMenu = MeasurementFormatter()
+    let formatterMedium = MeasurementFormatter()
+    let formatterShort = MeasurementFormatter()
+    let formatterLong = MeasurementFormatter()
     
     // State to make sure the decimal keyboard is dismissed after finishing typing
     @FocusState private var inputIsFocused: Bool
+    
+    let constants = Constants()
     
     var body: some View {
         
@@ -39,13 +39,13 @@ struct ConversionView: View {
                     
                     Menu {
                         Picker(selection: $inputUnit, label: Text("Select unit")) {
-                            ForEach(Constants().unitTypes[selectedUnits], id: \.self) {
+                            ForEach(constants.unitTypes[selectedUnits], id: \.self) {
                                 
-                                Text(formatter.string(from: $0).capitalized)
+                                Text(formatterMedium.string(from: $0).capitalized)
                             }
                         }
                     } label: {
-                        Text(formatter.string(from: inputUnit))
+                        Text(formatterMedium.string(from: inputUnit))
                     }
                     .frame(width: 130, height: 40)
                     .font(.title3)
@@ -54,15 +54,17 @@ struct ConversionView: View {
                 }
                 
                 ScrollView {
-                    ForEach(0..<Constants().unitTypes[selectedUnits].count, id: \.self) { num in
+                    ForEach(0..<constants.unitTypes[selectedUnits].count, id: \.self) { num in
                         
                         let inputMeasurement = Measurement(value: input, unit: inputUnit)
-                        let outputMeasurement = inputMeasurement.converted(to: Constants().unitTypes[selectedUnits][num])
+                        let outputMeasurement = inputMeasurement.converted(to: constants.unitTypes[selectedUnits][num])
                         
                         HStack {
-                            Text(formatter.string(from: Constants().unitTypes[selectedUnits][num]).capitalized)
+                            Text(formatterLong.string(from: constants.unitTypes[selectedUnits][num]).capitalized)
                             Spacer()
-                            Text(formatter.string(from: outputMeasurement))
+                            Text(formatterShort.string(from: outputMeasurement).filter("0123456789.".contains))
+
+                       
                         }
                         .padding(2)
                         .font(.title2)
@@ -72,22 +74,30 @@ struct ConversionView: View {
                             .background(.orange)
                     }
                 }
+
                 .foregroundColor(.white)
             }
             .onAppear(perform: initFormatter)
-            .navigationTitle("\(Constants().units[selectedUnits])")
+            .navigationTitle("\(constants.units[selectedUnits])")
             .padding()
         }
     }
     
     func initFormatter() {
-        // Short version for TextField and results
-        formatter.unitOptions = .providedUnit
-        formatter.unitStyle = .short
+        // Short version for TextField
+        formatterMedium.unitOptions = .providedUnit
+        formatterMedium.unitStyle = .medium
         
         // Long version for names in List View
-        formatterMenu.unitOptions = .providedUnit
-        formatterMenu.unitStyle = .long
+        formatterLong.unitOptions = .providedUnit
+        formatterLong.unitStyle = .long
+        
+        // Output version for names in List View
+        formatterShort.unitOptions = .providedUnit
+        formatterShort.unitStyle = .short
+    
+        
+        input = 0
     }
     
 }
@@ -100,3 +110,4 @@ struct Conversion_Previews: PreviewProvider {
         }
     }
 }
+

@@ -64,6 +64,23 @@ struct PickerModifier: ViewModifier {
     }
 }
 
+struct NeonStyle: ViewModifier {
+    let color: Color
+
+    func body(content: Content) -> some View {
+        return ZStack {
+            content.foregroundColor(color)
+
+        }
+        .padding(10)
+        .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(color, lineWidth: 4))
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(color, lineWidth: 4).brightness(0.1))
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(color, lineWidth: 4).brightness(0.1).opacity(0.2))
+        .compositingGroup()
+        
+    }
+}
+
 extension View {
     func orangeFrame() -> some View {
         modifier(OrangeFrame())
@@ -75,26 +92,6 @@ extension View {
     
     func pickerFrame() -> some View {
         modifier(PickerModifier())
-    }
-}
-
-extension Bundle {
-    func decode<T: Decodable>(file: String) -> T {
-        guard let url = self.url(forResource: file, withExtension: nil) else {
-            fatalError("Could not find \(file) in the project")
-        }
-        
-        guard let data = try? Data(contentsOf: url) else {
-            fatalError("Could not load \(file) in the project")
-        }
-        
-        let decoder = JSONDecoder()
-        
-        guard let loadedData = try? decoder.decode(T.self, from: data) else {
-            fatalError("Could not decode \(file) in the project")
-        }
-        
-        return loadedData
     }
 }
 
