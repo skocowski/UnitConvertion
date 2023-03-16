@@ -23,15 +23,24 @@ struct MainView: View {
     var body: some View {
         if #available(iOS 16.0, *) {
             NavigationStack {
-                mainBody
+                ZStack(alignment: .top) {
+                    Color.bgColor
+                        .ignoresSafeArea()
+                    mainBody
+                        .toolbar(.hidden)
+                }
             }
         } else {
             // Fallback on earlier versions
             NavigationView {
-                mainBody
+                ZStack(alignment: .top) {
+                    Color.bgColor
+                        .ignoresSafeArea()
+                    mainBody
+                }
+                .navigationBarHidden(true)
             }
         }
-        
     }
 }
 
@@ -44,19 +53,13 @@ struct MainView_Previews: PreviewProvider {
 
 extension MainView {
     private var mainBody: some View {
-        ZStack(alignment: .top) {
-            Color.bgColor
-                .ignoresSafeArea()
+        
+        VStack {
+            Text("\(Image(systemName: "wand.and.stars.inverse"))UnitConverter")
+                .font(Font.custom("SnellRoundHand", size: 50))
+                .modifier(NeonStyle(color: .orange))
             
-            VStack {
-                
-                
-                Text("\(Image(systemName: "wand.and.stars.inverse"))UnitConverter")
-                    .font(Font.custom("SnellRoundHand", size: 50))
-                    .modifier(NeonStyle(color: .orange))
-                
-                
-                
+            ScrollView {
                 LazyVGrid(columns: columns, spacing: 30) {
                     NavigationLink {
                         
@@ -72,14 +75,11 @@ extension MainView {
                             MenuItem(image: constants.icons[index], text: constants.units[index])
                         })
                     }
-                    
                 }
                 .padding()
-                
-                
             }
+
         }
-        .toolbar(.hidden)
     }
 }
 

@@ -12,7 +12,7 @@ class Favourites: ObservableObject, Codable {
     private var currencies: Set<String>
     
     // The UserDefaults key
-    private var saveKey = "Favourities"
+    private var saveKey = "Favourites"
     
     init() {
         // Load saved data

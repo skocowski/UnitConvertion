@@ -10,20 +10,25 @@ import SwiftUI
 
 struct CurrencyView: View {
     
-
-    @State var input = "1"
-    @State var base = "USD"
-    @State var selectedCurrency = "GBP"
-    @State var currencyList = [String]()
-    @State var currencyArray = [AdjustedCurrency]()
-    
-    @State var showFavourites = false
-    @State private var presentPicker = false
-    
     @StateObject var favourities = Favourites()
-    // To make sure decimal keyboard disappear after typing
+    
+    @State private var input: Double?
+    @State private var base: String = "\(Locale.current.currency?.identifier ?? "USD")"
+    @State private var currencyList = [String]()
+    @State private var currencyArray = [AdjustedCurrency]()
+    @State private var searchText = ""
+    
+    @State private var showFavourites = false
+    @State private var presentPicker = false
     @FocusState private var inputIsFocused: Bool
-
+    
+    private var filteredCurrencies: [String] {
+        if searchText.isEmpty {
+            return currencyList
+        } else {
+            return currencyList.filter { $0.lowercased().contains(searchText.lowercased())}
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -31,51 +36,33 @@ struct CurrencyView: View {
                 .ignoresSafeArea()
             VStack {
                 HStack {
-                    TextField("Enter an amount", text: $input)
+                    TextField("Value", value: $input, format: .number)
                         .textFieldFrame()
                         .focused($inputIsFocused)
-                    
-                    Spacer()
-                    
-                    Menu {
-                        Picker(selection: $base, label: Text("Select a currency")) {
-                            ForEach(currencyList, id: \.self) {
-                                Text($0)
+                        .onSubmit {
+                            inputIsFocused = false
+                            Task {
+                                await makeRequest()
                             }
                         }
-                    } label: {
-                        Text("\(base)")
-                    }
-                    .frame(width: 120, height: 40)
-                    .pickerFrame()
-                }
-                
-                HStack {
-                    
-                    Button(showFavourites ? "Show All" : "Show favourities") {
-                        showFavourites.toggle()
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .font(.title2)
-                    
-                    
                     Spacer()
                     
-                    Button {
-                        Task {
-                            await makeRequest()
+                    Picker(selection: $base, label: Text("")) {
+                        SearchBar(text: $searchText, placeholder: "Find currency")
+                        ForEach(filteredCurrencies, id: \.self) { currency in
+                            HStack(spacing: 10) {
+                                
+                                Text(getFlag(currency: currency))
+                                Text(currency)
+                                    .fontWeight(.bold)
+                                Spacer()
+                            }
                         }
-                        
-                        inputIsFocused = false
-                    } label: {
-                        Text("Convert")
-                            .frame(width: 100)
-                            .font(.title2)
                     }
+                    .pickerStyle(.navigationLink)
+                    .frame(width: 100, height: 40)
+                    .pickerFrame()
                 }
-                .padding()
-                .buttonStyle(.borderedProminent)
-                
                 ScrollView {
                     ForEach(0..<favouritesCurrencies.count, id: \.self) { index in
                         let currency = favouritesCurrencies[index]
@@ -101,17 +88,16 @@ struct CurrencyView: View {
                                     
                                     Text(getFlag(currency: currency.name))
                                         .font(.largeTitle)
-                                    //    .font(.system(size: 45))
+                             
+                                    Spacer()
                                     
-                                      Spacer()
-                                        
                                     Text(currency.rate)
-                                            .font(.title2)
-                                            .bold()
+                                        .font(.title2)
+                                        .bold()
                                 }
                             }
                             .padding(2)
-
+                            
                             Divider()
                                 .frame(height: 1)
                                 .background(.orange)
@@ -120,13 +106,18 @@ struct CurrencyView: View {
                     .foregroundColor(.white)
                 }
                 .padding(.vertical, 15)
+                
+                Button(showFavourites ? "Show All" : "Show favourites") {
+                    showFavourites.toggle()
+                }
+                .buttonStyle(.borderedProminent)
+                .font(.title2)
             }
             .padding()
             .onAppear {
                 Task {
                     await makeRequest()
                 }
-                
             }
         }
     }
@@ -140,8 +131,8 @@ struct CurrencyView: View {
     }
     
     func makeRequest() async {
-
-        getJSON(urlString: "https://api.exchangerate.host/latest?base=\(base)&amount=\(input)") { (currency: Currency?) in
+        
+        getJSON(urlString: "https://api.exchangerate.host/latest?base=\(base)&amount=\(input ?? 1)") { (currency: Currency?) in
             var tempList = [String]()
             var tempArray = [AdjustedCurrency]()
             DispatchQueue.main.async {
@@ -170,7 +161,7 @@ struct CurrencyView: View {
                 currencyList.self = tempList
                 currencyArray.self = tempArray
             }
-
+            
         }
     }
     
@@ -200,4 +191,7 @@ struct CurrencyAllView_Previews: PreviewProvider {
         }
     }
 }
+
+
+
 

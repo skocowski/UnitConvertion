@@ -18,7 +18,14 @@ struct Constants {
         "Pressure",
         "Speed",
         "Temp",
-        "Volume"
+        "Volume",
+        "Power",
+        "Energy",
+        "Duration",
+        "Frequency",
+        "Current",
+        "Fuel",
+        "Charge"
     ]
 
     // List of icons as SF symbols
@@ -30,53 +37,96 @@ struct Constants {
         "gauge",
         "hare",
         "thermometer",
-        "homepod.and.homepodmini"
+        "homepod.and.homepodmini",
+        "bolt",
+        "engine.combustion.fill",
+        "timer",
+        "waveform.path",
+        "alternatingcurrent",
+        "fuelpump.fill",
+        "poweroutlet.type.g.fill"
     ]
 
     let unitTypes = [
         [
             UnitAngle.degrees,
             UnitAngle.gradians,
-            UnitAngle.radians
+            UnitAngle.radians,
+            UnitAngle.arcMinutes,
+            UnitAngle.arcSeconds,
+            UnitAngle.revolutions
         ],
         [
-            UnitArea.squareInches,
-            UnitArea.squareFeet,
-            UnitArea.squareYards,
-            UnitArea.squareMeters,
             UnitArea.acres,
             UnitArea.ares,
             UnitArea.hectares,
-            UnitArea.squareKilometers
+            UnitArea.squareKilometers,
+            UnitArea.squareCentimeters,
+            UnitArea.squareNanometers,
+            UnitArea.squareMillimeters,
+            UnitArea.squareMegameters,
+            UnitArea.squareMicrometers,
+            UnitArea.squareMiles,
+            UnitArea.squareInches,
+            UnitArea.squareFeet,
+            UnitArea.squareYards,
+            UnitArea.squareMeters
         ],
         [
             UnitLength.millimeters,
             UnitLength.centimeters,
-            UnitLength.inches,
-            UnitLength.decameters,
-            UnitLength.feet,
-            UnitLength.yards,
+            UnitLength.decimeters,
             UnitLength.meters,
             UnitLength.kilometers,
             UnitLength.miles,
-            UnitLength.nauticalMiles
+            UnitLength.nauticalMiles,
+            UnitLength.inches,
+            UnitLength.feet,
+            UnitLength.yards,
+            UnitLength.decameters,
+            UnitLength.nanometers,
+            UnitLength.micrometers,
+            UnitLength.astronomicalUnits,
+            UnitLength.lightyears,
+            UnitLength.furlongs,
+            UnitLength.hectometers,
+            UnitLength.fathoms,
+            UnitLength.scandinavianMiles,
+            UnitLength.picometers,
+            UnitLength.parsecs,
+            UnitLength.megameters
         ],
         [
+            UnitMass.milligrams,
             UnitMass.grams,
             UnitMass.kilograms,
+            UnitMass.pounds,
+            UnitMass.stones,
             UnitMass.carats,
             UnitMass.ounces,
-            UnitMass.pounds,
-            UnitMass.stones
+            UnitMass.centigrams,
+            UnitMass.decigrams,
+            UnitMass.metricTons,
+            UnitMass.micrograms,
+            UnitMass.nanograms,
+            UnitMass.ouncesTroy,
+            UnitMass.picograms,
+            UnitMass.shortTons,
+            UnitMass.slugs
         ],
         [
             UnitPressure.hectopascals,
-            UnitPressure.millibars,
             UnitPressure.kilopascals,
-            UnitPressure.hectopascals,
+            UnitPressure.bars,
+            UnitPressure.millibars,
             UnitPressure.millimetersOfMercury,
             UnitPressure.poundsForcePerSquareInch,
-            UnitPressure.newtonsPerMetersSquared
+            UnitPressure.newtonsPerMetersSquared,
+            UnitPressure.poundsForcePerSquareInch,
+            UnitPressure.inchesOfMercury,
+            UnitPressure.megapascals,
+            UnitPressure.gigapascals
+     
         ],
         [
             UnitSpeed.kilometersPerHour,
@@ -94,11 +144,97 @@ struct Constants {
             UnitVolume.liters,
             UnitVolume.cubicCentimeters,
             UnitVolume.cubicMeters,
+            UnitVolume.gallons,
+            UnitVolume.pints,
             UnitVolume.imperialPints,
             UnitVolume.imperialGallons,
-            UnitVolume.gallons
+            UnitVolume.fluidOunces,
+            UnitVolume.cubicMillimeters,
+            UnitVolume.cubicKilometers,
+            UnitVolume.cubicMiles,
+            UnitVolume.cubicYards,
+            UnitVolume.cubicInches,
+            UnitVolume.cubicDecimeters,
+            UnitVolume.acreFeet,
+            UnitVolume.bushels,
+            UnitVolume.centiliters,
+            UnitVolume.cubicDecimeters,
+            UnitVolume.cubicFeet,
+            UnitVolume.teaspoons,
+            UnitVolume.tablespoons,
+            UnitVolume.quarts,
+            UnitVolume.metricCups,
+            UnitVolume.megaliters,
+            UnitVolume.kiloliters,
+            UnitVolume.imperialQuarts,
+            UnitVolume.imperialTeaspoons,
+            UnitVolume.imperialTablespoons,
+            UnitVolume.imperialFluidOunces,
+            UnitVolume.deciliters,
+            UnitVolume.cups,
+            UnitVolume.acreFeet
+        ],
+        [
+            UnitPower.watts,
+            UnitPower.kilowatts,
+            UnitPower.megawatts,
+            UnitPower.gigawatts,
+            UnitPower.terawatts,
+            UnitPower.microwatts,
+            UnitPower.milliwatts,
+            UnitPower.picowatts,
+            UnitPower.femtowatts,
+            UnitPower.nanowatts,
+            UnitPower.horsepower
+        ],
+        [
+            UnitEnergy.calories,
+            UnitEnergy.kilocalories,
+            UnitEnergy.joules,
+            UnitEnergy.kilojoules,
+            UnitEnergy.kilowattHours
+        ],
+        [
+            UnitDuration.seconds,
+            UnitDuration.minutes,
+            UnitDuration.hours,
+            UnitDuration.microseconds,
+            UnitDuration.milliseconds,
+            UnitDuration.nanoseconds,
+            UnitDuration.picoseconds
+
+        ],
+        [
+            UnitFrequency.hertz,
+            UnitFrequency.megahertz,
+            UnitFrequency.gigahertz,
+            UnitFrequency.microhertz,
+            UnitFrequency.kilohertz,
+            UnitFrequency.framesPerSecond,
+            UnitFrequency.millihertz,
+            UnitFrequency.nanohertz,
+            UnitFrequency.terahertz
+        ],
+        [
+            UnitElectricCurrent.amperes,
+            UnitElectricCurrent.microamperes,
+            UnitElectricCurrent.milliamperes,
+            UnitElectricCurrent.kiloamperes,
+            UnitElectricCurrent.megaamperes
+        ],
+        [
+            UnitFuelEfficiency.litersPer100Kilometers,
+            UnitFuelEfficiency.milesPerGallon,
+            UnitFuelEfficiency.milesPerImperialGallon
+        ],
+        [
+            UnitElectricCharge.coulombs,            
+            UnitElectricCharge.microampereHours,
+            UnitElectricCharge.milliampereHours,
+            UnitElectricCharge.ampereHours,
+            UnitElectricCharge.kiloampereHours,
+            UnitElectricCharge.megaampereHours
         ]
-        
     ]
 }
 

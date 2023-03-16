@@ -36,8 +36,7 @@ struct TextFieldModifier: ViewModifier {
         .padding(.horizontal)
         .foregroundColor(.white)
         .background(Color.blue.opacity(0.5))
-        .font(.title)
-        .bold()
+        .font(.title.weight(.bold))
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow(color: .red, radius: 15, x: 0, y: 0)
         .overlay(
@@ -52,7 +51,6 @@ struct TextFieldModifier: ViewModifier {
 struct PickerModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
-            .bold()
             .foregroundColor(.white)
             .background(Color.blue.opacity(0.5))
             .clipShape(RoundedRectangle(cornerRadius: 10))
