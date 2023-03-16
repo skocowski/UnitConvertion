@@ -10,25 +10,18 @@ import Foundation
 @MainActor
 class CurrencyViewModel: ObservableObject {
     
-    
-    
     @Published var input: Double?
-    @Published var base: String = "\(Locale.current.currency?.identifier ?? "USD")"
+    @Published var base: String = "\(Locale.current.currency?.identifier ?? "USD")" {
+        didSet {
+            searchText = ""
+        }
+    }
     @Published var currencyList = [String]()
     @Published var currencyArray = [AdjustedCurrency]()
     @Published var searchText = ""
     @Published var showFavourites = false
     @Published var presentPicker = false
     @Published var isLoading = false
-    
-    
-//    var favouritesCurrencies: [AdjustedCurrency] {
-//        if showFavourites {
-//            return currencyArray.filter { favourities.contains($0) }
-//        } else {
-//            return currencyArray
-//        }
-//    }
     
     var filteredCurrencies: [String] {
         if searchText.isEmpty {
@@ -38,6 +31,7 @@ class CurrencyViewModel: ObservableObject {
         }
     }
     // Downloading JSON from API
+    // https://api.exchangerate.host/latest?base=\(base)&amount=\(input)
     func getJSON<T: Decodable>(urlString: String, completion: @escaping (T?) -> Void) {
         guard let url = URL(string: urlString) else {
             isLoading = false
@@ -75,6 +69,7 @@ class CurrencyViewModel: ObservableObject {
                     for currency in currency.rates {
                         tempList.append("\(currency.key)")
                         
+                        // Formatting rates
                         var formattedRate: String {
                             let formatter = NumberFormatter()
                             formatter.numberStyle = .decimal
@@ -102,7 +97,10 @@ class CurrencyViewModel: ObservableObject {
     }
     
     func getFlag(currency: String) -> String {
+        // Unicode base, nothing to do with swift
         let base = 127397
+        
+        // No flags for them
         let currencyExceptions: [String] = ["ANG", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT", "BTC"]
         
         if currencyExceptions.contains(currency) {

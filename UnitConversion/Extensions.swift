@@ -62,6 +62,7 @@ struct PickerModifier: ViewModifier {
     }
 }
 
+// Header logo modifier
 struct NeonStyle: ViewModifier {
     let color: Color
 

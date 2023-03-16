@@ -26,12 +26,10 @@ class ConversionViewModel: ObservableObject {
         formatterMedium.unitOptions = .providedUnit
         formatterMedium.unitStyle = .medium
         
-        
         // Long version for names in List View
         formatterLong.unitOptions = .providedUnit
         formatterLong.unitStyle = .long
 
-        
         // Output version for names in List View
         formatterShort.unitOptions = .providedUnit
         formatterShort.unitStyle = .short

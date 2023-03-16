@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ConversionView: View {
+    
     @StateObject var vm = ConversionViewModel()
     let constants = Constants()
     

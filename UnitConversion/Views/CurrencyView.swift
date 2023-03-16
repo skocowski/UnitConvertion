@@ -4,7 +4,7 @@
 //
 //  Created by Szymon Kocowski on 08/09/2022.
 //
-// https://api.exchangerate.host/latest?base=\(base)&amount=\(input)
+// 
 
 import SwiftUI
 
