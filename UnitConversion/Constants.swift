@@ -21,7 +21,7 @@ struct Constants {
         "Volume",
         "Power",
         "Energy",
-        "Duration",
+        "Time",
         "Frequency",
         "Current",
         "Fuel",

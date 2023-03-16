@@ -9,13 +9,13 @@ import SwiftUI
 
 struct MainView: View {
     let constants = Constants()
+    
     init() {
         // Navigation Bar Title font colour.
         let navBarAppearance = UINavigationBar.appearance()
         navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.orange]
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.orange]
     }
-    @State private var blur: CGFloat = 50
     
     // Columns for LazyGrid
     let columns: [GridItem] = [ GridItem(.adaptive(minimum: 100, maximum: 140),spacing: 10, alignment: .top) ]
@@ -58,6 +58,7 @@ extension MainView {
             Text("\(Image(systemName: "wand.and.stars.inverse"))UnitConverter")
                 .font(Font.custom("SnellRoundHand", size: 50))
                 .modifier(NeonStyle(color: .orange))
+                .padding(.bottom)
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 30) {
@@ -78,7 +79,8 @@ extension MainView {
                 }
                 .padding()
             }
-
+            .scrollIndicators(.hidden)
+            .padding(.bottom)
         }
     }
 }

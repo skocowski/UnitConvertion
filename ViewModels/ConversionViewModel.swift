@@ -9,12 +9,19 @@ import Foundation
 
 class ConversionViewModel: ObservableObject {
 
-    
+    let numberFormatter = NumberFormatter()
     let formatterShort = MeasurementFormatter()
     let formatterMedium = MeasurementFormatter()
     let formatterLong = MeasurementFormatter()
     
     init() {
+        
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.minimumFractionDigits = 0
+        numberFormatter.maximumFractionDigits = 3
+        numberFormatter.decimalSeparator = "."
+        numberFormatter.groupingSeparator = " "
+        
         // Short version for TextField
         formatterMedium.unitOptions = .providedUnit
         formatterMedium.unitStyle = .medium
@@ -29,6 +36,4 @@ class ConversionViewModel: ObservableObject {
         formatterShort.unitOptions = .providedUnit
         formatterShort.unitStyle = .short
     }
-    
-
 }
