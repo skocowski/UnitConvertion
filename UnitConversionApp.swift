@@ -9,11 +9,11 @@ import SwiftUI
 
 @main
 struct UnitConversionApp: App {
-//    @StateObject var model = UnitModel()
+
     var body: some Scene {
         WindowGroup {
             MainView()
-   //             .environmentObject(model)
+
         }
     }
 }

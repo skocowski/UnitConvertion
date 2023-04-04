@@ -24,14 +24,16 @@ struct ConversionView: View {
             Color.bgColor
                 .ignoresSafeArea()
             VStack {
+                // Input value and unit type.
                 headerBar
+                // All the other units converted.
                 resultsList
             }
             .navigationTitle("\(constants.units[selectedUnits])")
             .padding(.bottom)
             .padding(.horizontal, 1)
             .onTapGesture {
-                // Hide Keyboard
+                // Hide Keyboard after tapping anywhere.
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
             }
         }
@@ -41,6 +43,7 @@ struct ConversionView: View {
 extension ConversionView {
     private var headerBar: some View {
         HStack {
+            // Value input Text Field.
             TextField("0", value: $input, format: .number)
                 .textFieldFrame()
                 .keyboardType(.numberPad)
@@ -48,6 +51,7 @@ extension ConversionView {
             Spacer()
             
             Menu {
+                // Picking unit type.
                 Picker(selection: $inputUnit, label: Text("Select unit")) {
                     ForEach(constants.unitTypes[selectedUnits], id: \.self) {
                         Text(vm.formatterMedium.string(from: $0).capitalized)

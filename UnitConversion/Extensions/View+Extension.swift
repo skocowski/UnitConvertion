@@ -1,17 +1,25 @@
 //
-//  Constants.swift
+//  View+Extension.swift
 //  UnitConversion
 //
-//  Created by Szymon Kocowski on 10/09/2022.
+//  Created by Szymon Kocowski on 4/4/23.
 //
 
 import Foundation
 import SwiftUI
 
-
-extension Color {
-    // Background colour for the whole APP
-    static let bgColor = Color.black
+extension View {
+    func orangeFrame() -> some View {
+        modifier(OrangeFrame())
+    }
+    
+    func textFieldFrame() -> some View {
+        modifier(TextFieldModifier())
+    }
+    
+    func pickerFrame() -> some View {
+        modifier(PickerModifier())
+    }
 }
 
 // Frame for main menu icons
@@ -29,6 +37,7 @@ struct OrangeFrame: ViewModifier {
     }
 }
 
+// Modifiers for input TextField for units and currencies
 struct TextFieldModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -48,6 +57,7 @@ struct TextFieldModifier: ViewModifier {
     }
 }
 
+// Modifier for picking kind of unit or currency
 struct PickerModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -72,6 +82,7 @@ struct NeonStyle: ViewModifier {
 
         }
         .padding(10)
+        .frame(maxWidth: .infinity)
         .overlay(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(color, lineWidth: 4))
         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(color, lineWidth: 4).brightness(0.1))
         .background(RoundedRectangle(cornerRadius: 16, style: .continuous).stroke(color, lineWidth: 4).brightness(0.1).opacity(0.2))
@@ -79,18 +90,3 @@ struct NeonStyle: ViewModifier {
         
     }
 }
-
-extension View {
-    func orangeFrame() -> some View {
-        modifier(OrangeFrame())
-    }
-    
-    func textFieldFrame() -> some View {
-        modifier(TextFieldModifier())
-    }
-    
-    func pickerFrame() -> some View {
-        modifier(PickerModifier())
-    }
-}
-

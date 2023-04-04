@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+// Search Bar for shortening filtered list of currencies.
 struct SearchBar: UIViewRepresentable {
     
     @Binding var text: String

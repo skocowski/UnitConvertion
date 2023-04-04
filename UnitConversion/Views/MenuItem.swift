@@ -18,12 +18,17 @@ struct MenuItem: View {
                 .orangeFrame()
 
             VStack(spacing: 7) {
+                // SF symbol icon, full list in Constants struct.
                 Image(systemName: image)
                     .font(.largeTitle)
                     .foregroundColor(.white)
+                
+                // Unit title, full list in Constants struct.
                 Text(text)
                     .foregroundColor(.white)
+                    .font(.caption)
             }
+            
         }
     }
 }

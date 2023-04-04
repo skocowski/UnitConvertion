@@ -97,10 +97,10 @@ class CurrencyViewModel: ObservableObject {
     }
     
     func getFlag(currency: String) -> String {
-        // Unicode base, nothing to do with swift
+        // Unicode base, nothing to do with swift.
         let base = 127397
         
-        // No flags for them
+        // No flags for them in Unicode.
         let currencyExceptions: [String] = ["ANG", "XAF", "XAG", "XAU", "XCD", "XDR", "XOF", "XPD", "XPF", "XPT", "BTC"]
         
         if currencyExceptions.contains(currency) {

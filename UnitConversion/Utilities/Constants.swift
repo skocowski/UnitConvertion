@@ -9,7 +9,7 @@ import Foundation
 
 struct Constants {
     
-    // List of units
+    // List of units.
     let units = [
         "Angle",
         "Area",
@@ -28,25 +28,26 @@ struct Constants {
         "Charge"
     ]
 
-    // List of icons as SF symbols
+    // List of icons as SF symbols.
     let icons = [
         "lessthan",
-        "globe.europe.africa",
+        "square",
         "ruler",
-        "leaf",
+        "scalemass",
         "gauge",
         "hare",
         "thermometer",
-        "homepod.and.homepodmini",
+        "mug",
+        "engine.combustion",
         "bolt",
-        "engine.combustion.fill",
         "timer",
         "waveform.path",
         "alternatingcurrent",
-        "fuelpump.fill",
-        "poweroutlet.type.g.fill"
+        "fuelpump",
+        "minus.plus.batteryblock"
     ]
-
+    
+    // The array of all units combinations.
     let unitTypes = [
         [
             UnitAngle.degrees,

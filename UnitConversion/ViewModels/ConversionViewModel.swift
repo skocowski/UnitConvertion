@@ -16,6 +16,7 @@ class ConversionViewModel: ObservableObject {
     
     init() {
         
+        // Result output.
         numberFormatter.numberStyle = .decimal
         numberFormatter.minimumFractionDigits = 0
         numberFormatter.maximumFractionDigits = 3

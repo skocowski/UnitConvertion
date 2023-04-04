@@ -7,7 +7,7 @@
 
 import Foundation
 
-// Struct matching the API
+// Struct matching the external API.
 struct Currency: Codable, Hashable {
     var success: Bool
     var base: String
@@ -15,7 +15,7 @@ struct Currency: Codable, Hashable {
     var rates = [String: Double]()
 }
 
-// New struct to match the project needs
+// New struct to match the project needs.
 struct AdjustedCurrency {
     var name: String
     var rate: String

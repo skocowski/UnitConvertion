@@ -8,14 +8,14 @@
 import SwiftUI
 
 class Favourites: ObservableObject, Codable {
-    // Currencies marked as favourities
+    // Currencies marked as favourities.
     private var currencies: Set<String>
     
-    // The UserDefaults key
+    // The UserDefaults key.
     private var saveKey = "Favourites"
     
     init() {
-        // Load saved data
+        // Load saved data.
         if let data = UserDefaults.standard.data(forKey: saveKey) {
             if let decoded = try? JSONDecoder().decode(Set<String>.self, from: data) {
                 currencies = decoded
@@ -23,30 +23,30 @@ class Favourites: ObservableObject, Codable {
             }
         }
         
-        // If there is no saved data
+        // If there is no saved data.
         currencies = []
     }
     
-    // Checking if contains favourited
+    // Checking if contains favourited.
     func contains(_ currency: AdjustedCurrency) -> Bool {
         currencies.contains(currency.name)
     }
     
-    // Adding to favourities
+    // Adding to favourities.
     func add(_ currency: AdjustedCurrency) {
         objectWillChange.send()
         currencies.insert(currency.name)
         save()
     }
     
-    // Removing from favourities
+    // Removing from favourities.
     func remove(_ currency: AdjustedCurrency) {
         objectWillChange.send()
         currencies.remove(currency.name)
         save()
     }
     
-    // Saving favourite curriencies into UserDefaults
+    // Saving favourite curriencies into UserDefaults.
     func save() {
         if let encoded = try? JSONEncoder().encode(currencies) {
             UserDefaults.standard.set(encoded, forKey: saveKey)

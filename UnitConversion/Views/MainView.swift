@@ -17,7 +17,7 @@ struct MainView: View {
         navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.orange]
     }
     
-    // Columns for LazyGrid
+    // Columns for LazyGrid.
     let columns: [GridItem] = [ GridItem(.adaptive(minimum: 100, maximum: 140),spacing: 10, alignment: .top) ]
     
     var body: some View {
@@ -55,10 +55,15 @@ extension MainView {
     private var mainBody: some View {
         
         VStack {
-            Text("\(Image(systemName: "wand.and.stars.inverse"))UnitConverter")
-                .font(Font.custom("SnellRoundHand", size: 50))
-                .modifier(NeonStyle(color: .orange))
-                .padding(.bottom)
+            HStack {
+                // Main header.
+                Text("\(Image(systemName: "wand.and.stars.inverse"))Convert Units")
+                    .font(Font.custom("SnellRoundHand", size: 40))
+                    .modifier(NeonStyle(color: .orange))
+                    .padding(.bottom)
+            }
+            .padding()
+
             
             ScrollView {
                 LazyVGrid(columns: columns, spacing: 30) {
@@ -67,7 +72,7 @@ extension MainView {
                         CurrencyView()
                         
                     } label: {
-                        MenuItem(image: "dollarsign.circle", text: "Currency")
+                        MenuItem(image: "sterlingsign.circle", text: "Currency")
                     }
                     ForEach(Array(constants.units.enumerated()), id: \.offset) { index, unit in
                         NavigationLink(destination: {
@@ -82,6 +87,7 @@ extension MainView {
             .scrollIndicators(.hidden)
             .padding(.bottom)
         }
+        
     }
 }
 

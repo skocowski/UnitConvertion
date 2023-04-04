@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CurrencyView: View {
     
+   
     @StateObject var favourities = Favourites()
     @StateObject var vm = CurrencyViewModel()
     
@@ -21,9 +22,11 @@ struct CurrencyView: View {
             Color.bgColor
                 .ignoresSafeArea()
             VStack {
+                // Currency value and name.
                 headerBar
                 ZStack {
                     currenciesList
+                    // Progress View while loading currencies from external API.
                     if vm.isLoading {
                         ProgressView()
                             .tint(.orange)
@@ -39,7 +42,7 @@ struct CurrencyView: View {
                 }
             }
             .onTapGesture {
-                // Hide Keyboard
+                // Hide Keyboard after tapping anywhere
                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                 Task {
                     await vm.makeRequest()
@@ -48,6 +51,7 @@ struct CurrencyView: View {
         }
     }
     
+    // Showing all the currencies or only favourites.
     var favouritesCurrencies: [AdjustedCurrency] {
         if showFavourites {
             return vm.currencyArray.filter { favourities.contains($0) }
@@ -69,16 +73,20 @@ extension CurrencyView {
     
     private var headerBar: some View {
         HStack {
+            // Input currency value.
             TextField("Value", value: $vm.input, format: .number)
                 .textFieldFrame()
 
             Spacer()
             
+            // Choosing the currency, default taken from user's locale.
             Picker(selection: $vm.base, label: Text("")) {
+                // Typing currency name to shorten the list of all of them.
                 SearchBar(text: $vm.searchText, placeholder: "Find currency")
+                // List of all the currencies, filtered by the bar above.
                 ForEach(vm.filteredCurrencies, id: \.self) { currency in
                     HStack(spacing: 10) {
-                        
+                        // Currency flag loaded from Unicode
                         Text(vm.getFlag(currency: currency))
                         Text(currency)
                             .fontWeight(.bold)
@@ -99,7 +107,7 @@ extension CurrencyView {
                 VStack(alignment: .leading) {
                     HStack {
                         
-                        // Marking currency as Favourite
+                        // Toggling currency as Favourite.
                         Button {
                             if favourities.contains(currency) {
                                 favourities.remove(currency)
@@ -112,10 +120,11 @@ extension CurrencyView {
                                 .font(.title)
                         }
                         HStack {
+                            
                             Text(currency.name)
                                 .font(.title2)
                                 .bold()
-                            
+                            // Currency flag loaded from Unicode
                             Text(vm.getFlag(currency: currency.name))
                                 .font(.largeTitle)
                      
